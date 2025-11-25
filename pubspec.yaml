@@ -1,12 +1,42 @@
 name: indian_currency_input_formatter
 description: A robust TextInputFormatter for Indian currency formatting (lakh/crore grouping), caret-safe and fintech-friendly
-version: 0.1.0
-homepage: https://github.com/priyeshchowta/indian_currency_input_formatter  
+version: 1.0.0
+homepage: https://github.com/priyeshchowta/indian_currency_input_formatter
 repository: https://github.com/priyeshchowta/indian_currency_input_formatter
+issue_tracker: https://github.com/priyeshchowta/indian_currency_input_formatter/issues
+documentation: https://pub.dev/documentation/indian_currency_input_formatter/latest/
+
 environment:
   sdk: ">=2.18.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   test: ^1.21.0
-  pedantic: ^1.11.0
+  pedantic: ^1.11.1
+  lints: ^2.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+  # This section identifies this Flutter project as a plugin project.
+  # The 'pluginClass' and Android 'package' identifiers should not ordinarily
+  # be modified. They are used by the tooling to maintain consistency when
+  # adding or updating assets for this project.
+  plugin:
+    platforms:
+      android:
+        package: com.example.indian_currency_input_formatter
+        pluginClass: IndianCurrencyInputFormatterPlugin
+      ios:
+        pluginClass: IndianCurrencyInputFormatterPlugin
+      web:
+        pluginClass: IndianCurrencyInputFormatterWeb
+        fileName: indian_currency_input_formatter_web.dart
