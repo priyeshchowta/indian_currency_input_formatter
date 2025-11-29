@@ -1,6 +1,6 @@
 name: indian_currency_input_formatter
 description: A robust TextInputFormatter for Indian currency formatting (lakh/crore grouping), caret-safe and fintech-friendly
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/priyeshchowta/indian_currency_input_formatter
 repository: https://github.com/priyeshchowta/indian_currency_input_formatter
 issue_tracker: https://github.com/priyeshchowta/indian_currency_input_formatter/issues
