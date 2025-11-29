@@ -31,7 +31,7 @@ class _DemoPageState extends State<DemoPage> {
   final _amountController = TextEditingController();
   final _formattedAmountController = TextEditingController();
   final _customFormatController = TextEditingController();
-  
+
   num? _parsedValue;
   bool _showIndianFormat = true;
 
@@ -60,14 +60,15 @@ class _DemoPageState extends State<DemoPage> {
         title: const Text('Indian Currency Formatter'),
         actions: [
           IconButton(
-            icon: Icon(_showIndianFormat ? Icons.language : Icons.currency_rupee),
+            icon:
+                Icon(_showIndianFormat ? Icons.language : Icons.currency_rupee),
             onPressed: () {
               setState(() {
                 _showIndianFormat = !_showIndianFormat;
               });
             },
-            tooltip: _showIndianFormat 
-                ? 'Switch to International Format' 
+            tooltip: _showIndianFormat
+                ? 'Switch to International Format'
                 : 'Switch to Indian Format',
           ),
         ],
@@ -98,7 +99,7 @@ class _DemoPageState extends State<DemoPage> {
                 },
               ),
               const SizedBox(height: 16),
-              
+
               // Parsed Value Display
               if (_parsedValue != null) ...[
                 Text(
@@ -112,12 +113,13 @@ class _DemoPageState extends State<DemoPage> {
                 ),
                 const Divider(height: 40),
               ],
-              
+
               // Custom Formatter
               _buildSectionTitle('Custom Formatter'),
               TextFormField(
                 controller: _customFormatController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
+                keyboardType: TextInputType.numberWithOptions(
+                    decimal: true, signed: true),
                 inputFormatters: [_customFormatter],
                 decoration: const InputDecoration(
                   labelText: 'Amount with Validation (-1,000,000 to 1,000,000)',
@@ -130,16 +132,15 @@ class _DemoPageState extends State<DemoPage> {
                     return 'Please enter an amount';
                   }
                   final val = parseIndianCurrency(value);
-                  if (val == null) return 'Invalid amount';
                   if (val < -1000000 || val > 1000000) {
                     return 'Amount must be between -1,000,000 and 1,000,000';
                   }
                   return null;
                 },
               ),
-              
+
               const SizedBox(height: 24),
-              
+
               // Formatted Display
               _buildSectionTitle('Format Existing Number'),
               TextFormField(
@@ -154,7 +155,8 @@ class _DemoPageState extends State<DemoPage> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  final number = double.tryParse(_formattedAmountController.text);
+                  final number =
+                      double.tryParse(_formattedAmountController.text);
                   if (number != null) {
                     final formatted = _formatNumber(number);
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -167,12 +169,12 @@ class _DemoPageState extends State<DemoPage> {
                 },
                 child: const Text('Format Number'),
               ),
-              
+
               // Toggle Format
               const SizedBox(height: 24),
               _buildSectionTitle('Toggle Format Style'),
               Text(
-                _showIndianFormat 
+                _showIndianFormat
                     ? 'Current Format: Indian (e.g., 12,34,56,789.00)'
                     : 'Current Format: International (e.g., 123,456,789.00)',
                 style: Theme.of(context).textTheme.titleMedium,
@@ -183,8 +185,8 @@ class _DemoPageState extends State<DemoPage> {
                 inputFormatters: [
                   IndianCurrencyInputFormatter(
                     showSymbol: true,
-                    groupingStyle: _showIndianFormat 
-                        ? GroupingStyle.indian 
+                    groupingStyle: _showIndianFormat
+                        ? GroupingStyle.indian
                         : GroupingStyle.international,
                   ),
                 ],
@@ -210,19 +212,19 @@ class _DemoPageState extends State<DemoPage> {
       ),
     );
   }
-  
+
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Text(
         title,
         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-          fontWeight: FontWeight.bold,
-        ),
+              fontWeight: FontWeight.bold,
+            ),
       ),
     );
   }
-  
+
   String _formatNumber(num value) {
     final formatter = IndianCurrencyInputFormatter(
       showSymbol: true,
@@ -230,7 +232,7 @@ class _DemoPageState extends State<DemoPage> {
       maxDecimals: 2,
     );
     final textEditingValue = formatter.formatEditUpdate(
-      const TextEditingValue(),
+      TextEditingValue.empty,
       TextEditingValue(text: value.toString()),
     );
     return textEditingValue.text;

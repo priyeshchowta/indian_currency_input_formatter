@@ -9,6 +9,22 @@ enum GroupingStyle { indian, international }
 enum RoundingMode { truncate, round, floor, ceil }
 
 class IndianCurrencyInputFormatter extends TextInputFormatter {
+  const IndianCurrencyInputFormatter({
+    this.maxDecimals = 2,
+    this.maxIntegerDigits,
+    this.allowNegative = false,
+    this.allowTrailingDecimal = true,
+    this.symbol = '₹',
+    this.showSymbol = false,
+    this.symbolPosition = SymbolPosition.prefix,
+    this.groupingStyle = GroupingStyle.indian,
+    this.separator = ',',
+    this.strictMode = false,
+    this.roundingMode = RoundingMode.truncate,
+    this.minValue,
+    this.maxValue,
+  });
+
   final int maxDecimals;
   final int? maxIntegerDigits;
   final bool allowNegative;
@@ -31,22 +47,6 @@ class IndianCurrencyInputFormatter extends TextInputFormatter {
   /// If user tries to go outside this range, the old value is kept.
   final num? minValue;
   final num? maxValue;
-
-  const IndianCurrencyInputFormatter({
-    this.maxDecimals = 2,
-    this.maxIntegerDigits,
-    this.allowNegative = false,
-    this.allowTrailingDecimal = true,
-    this.symbol = '₹',
-    this.showSymbol = false,
-    this.symbolPosition = SymbolPosition.prefix,
-    this.groupingStyle = GroupingStyle.indian,
-    this.separator = ',',
-    this.strictMode = false,
-    this.roundingMode = RoundingMode.truncate,
-    this.minValue,
-    this.maxValue,
-  });
 
   @override
   TextEditingValue formatEditUpdate(
@@ -207,8 +207,8 @@ String _formatNumber(
   }
 
   // Remove non-digits.
-  intPart = intPart.replaceAll(RegExp(r'[^0-9]'), '');
-  decPart = decPart.replaceAll(RegExp(r'[^0-9]'), '');
+  intPart = intPart.replaceAll(RegExp('[^0-9]'), '');
+  decPart = decPart.replaceAll(RegExp('[^0-9]'), '');
 
   // Enforce max integer digits.
   if (maxIntegerDigits != null && intPart.length > maxIntegerDigits) {

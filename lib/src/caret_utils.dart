@@ -12,8 +12,7 @@ TextSelection calculateNewSelection({
   required String separator,
 }) {
   // Based on "digits to the right" heuristic.
-  final caretIndexInNew =
-      newSelection.extentOffset.clamp(0, newText.length);
+  final caretIndexInNew = newSelection.extentOffset.clamp(0, newText.length);
 
   final digitsRight = _countDigitsRight(
     text: newText,
@@ -48,7 +47,8 @@ TextSelection calculateNewSelection({
   return TextSelection.fromPosition(TextPosition(offset: offset));
 }
 
-bool _isDigit(String ch) => ch.codeUnitAt(0) ^ 0x30 <= 9 && ch.codeUnitAt(0) ^ 0x30 >= 0;
+bool _isDigit(String ch) =>
+    ch.codeUnitAt(0) ^ 0x30 <= 9 && ch.codeUnitAt(0) ^ 0x30 >= 0;
 
 int _countDigitsRight({
   required String text,

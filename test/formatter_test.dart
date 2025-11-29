@@ -40,7 +40,8 @@ void main() {
         selection: TextSelection.collapsed(offset: 3),
       );
 
-      final output = formatter.formatEditUpdate(TextEditingValue.empty, newValue);
+      final output =
+          formatter.formatEditUpdate(TextEditingValue.empty, newValue);
 
       expect(output.text, '0.84');
     });
@@ -53,7 +54,8 @@ void main() {
         selection: TextSelection.collapsed(offset: 7),
       );
 
-      final output = formatter.formatEditUpdate(TextEditingValue.empty, newValue);
+      final output =
+          formatter.formatEditUpdate(TextEditingValue.empty, newValue);
 
       expect(output.text, '12.34'); // truncated
     });

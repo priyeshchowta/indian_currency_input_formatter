@@ -5,6 +5,33 @@ import 'formatter_core.dart';
 import 'parser.dart';
 
 class IndianCurrencyFormField extends StatefulWidget {
+  const IndianCurrencyFormField({
+    super.key,
+    this.controller,
+    this.focusNode,
+    this.maxDecimals = 2,
+    this.maxIntegerDigits,
+    this.allowNegative = false,
+    this.allowTrailingDecimal = true,
+    this.symbol = '₹',
+    this.showSymbol = false,
+    this.symbolPosition = SymbolPosition.prefix,
+    this.groupingStyle = GroupingStyle.indian,
+    this.separator = ',',
+    this.strictMode = false,
+    this.roundingMode = RoundingMode.truncate,
+    this.minValue,
+    this.maxValue,
+    this.fixOnFocusLost = true,
+    this.validator,
+    this.onChanged,
+    this.decoration = const InputDecoration(),
+    this.style,
+    this.textAlign = TextAlign.start,
+    this.textInputAction,
+    this.keyboardType = const TextInputType.numberWithOptions(decimal: true),
+  });
+
   final TextEditingController? controller;
   final FocusNode? focusNode;
 
@@ -35,33 +62,6 @@ class IndianCurrencyFormField extends StatefulWidget {
   final TextAlign textAlign;
   final TextInputAction? textInputAction;
   final TextInputType keyboardType;
-
-  const IndianCurrencyFormField({
-    super.key,
-    this.controller,
-    this.focusNode,
-    this.maxDecimals = 2,
-    this.maxIntegerDigits,
-    this.allowNegative = false,
-    this.allowTrailingDecimal = true,
-    this.symbol = '₹',
-    this.showSymbol = false,
-    this.symbolPosition = SymbolPosition.prefix,
-    this.groupingStyle = GroupingStyle.indian,
-    this.separator = ',',
-    this.strictMode = false,
-    this.roundingMode = RoundingMode.truncate,
-    this.minValue,
-    this.maxValue,
-    this.fixOnFocusLost = true,
-    this.validator,
-    this.onChanged,
-    this.decoration = const InputDecoration(),
-    this.style,
-    this.textAlign = TextAlign.start,
-    this.textInputAction,
-    this.keyboardType = const TextInputType.numberWithOptions(decimal: true),
-  });
 
   @override
   State<IndianCurrencyFormField> createState() =>
@@ -126,7 +126,7 @@ class _IndianCurrencyFormFieldState extends State<IndianCurrencyFormField> {
       if (text.isEmpty) return;
 
       final normalized = _normalizeFormatter.formatEditUpdate(
-        const TextEditingValue(),
+        TextEditingValue.empty,
         TextEditingValue(
           text: text,
           selection: TextSelection.collapsed(offset: text.length),
@@ -154,12 +154,14 @@ class _IndianCurrencyFormFieldState extends State<IndianCurrencyFormField> {
       focusNode: _focusNode,
       inputFormatters: <TextInputFormatter>[_formatter],
       decoration: widget.decoration.copyWith(
-        prefixText: widget.showSymbol && widget.symbolPosition == SymbolPosition.prefix
-            ? '${widget.symbol} '
-            : widget.decoration.prefixText,
-        suffixText: widget.showSymbol && widget.symbolPosition == SymbolPosition.suffix
-            ? ' ${widget.symbol}'
-            : widget.decoration.suffixText,
+        prefixText:
+            widget.showSymbol && widget.symbolPosition == SymbolPosition.prefix
+                ? '${widget.symbol} '
+                : widget.decoration.prefixText,
+        suffixText:
+            widget.showSymbol && widget.symbolPosition == SymbolPosition.suffix
+                ? ' ${widget.symbol}'
+                : widget.decoration.suffixText,
       ),
       keyboardType: widget.keyboardType,
       style: widget.style,
